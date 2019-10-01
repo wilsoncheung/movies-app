@@ -5,10 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://wilsoncheung.github.io/movies-app",
   "dependencies": {
     "core-js": "^2.6.5",
+    "gh-pages": "^2.1.1",
     "vue": "^2.6.10"
   },
   "devDependencies": {
