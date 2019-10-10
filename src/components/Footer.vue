@@ -1,18 +1,20 @@
 <template>
-  <footer>
-      Test footer
-  </footer>
+  <footer>Test footer</footer>
 </template>
 
 <script>
 export default {
-    name: "Footer"
+  name: "Footer"
 };
 </script>
 
 <style>
 footer {
-    background-color: black;
-    color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  height: 5vh;
 }
 </style>
