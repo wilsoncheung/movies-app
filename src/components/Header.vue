@@ -12,7 +12,7 @@
     <nav class="nav-center">
       <div class="container nav-wrapper">
         <router-link to="/" class="brand-logo">
-          <i class="fas fa-film"></i> Movie App
+          <i class="fas fa-film"></i> Movies
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
           <i class="material-icons">menu</i>
