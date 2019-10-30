@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <!-- <header>
       <div class="logo">
           <router-link to="/">
             <i class="fas fa-film fa-3x"></i>
@@ -7,41 +7,63 @@
           </router-link>
       </div>
       <router-link to="list">List</router-link>
-  </header>
+  </header> -->
+  <div>
+    <nav class="nav-center">
+      <div class="container nav-wrapper">
+        <router-link to="/" class="brand-logo">
+          <i class="fas fa-film"></i> Movie App
+        </router-link>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul id="nav-mobile" class=" hide-on-med-and-down">
+          <li><router-link to="popular">Popular</router-link></li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><router-link to="popular">Popular</router-link></li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Header'
-}
+  name: "Header"
+};
+
+$(document).ready(function() {
+  $(".sidenav").sidenav();
+});
 </script>
 
 <style>
-header {
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    background-color: black;
-    color: white;
-    height: 5vh;
-    /* margin: 0 auto; */
+nav {
+  background-color: black;
 }
-a {
-    display: flex;
-    align-items: center;
+nav.nav-center ul {
+  text-align: center;
+}
+nav.nav-center ul li {
+  display: inline;
+  float: none;
+}
+nav.nav-center ul li a {
+  display: inline-block;
 }
 a:hover {
-    text-decoration: none !important;
-    color: gray;
+  text-decoration: none !important;
+  color: gray;
 }
-.logo {
-    display: flex;
-    align-items: center;
-    padding: 0 5em 0 7em;
+.brand-logo {
+  /* display: flex;
+  align-items: center; */
+  /* padding: 0 5em 0 7em !important; */
 }
-.site-name {
-    font-size: 25px;
-    padding: 0 10px;
-}
+/* .site-name {
+  font-size: 25px;
+  padding: 0 10px;
+} */
 </style>

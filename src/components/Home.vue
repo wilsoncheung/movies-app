@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <div class="filters">
+    <!-- <div class="filters">
         <div>1 things</div>
         <div>2 things</div>
         <div>3 things</div>
@@ -13,23 +13,23 @@
         <div>8 things</div>
         <div>9 things</div>
         <div>10 things</div>
-      </div>
-    </div>
+      </div> -->
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'Home'
-}
+  name: "Home"
+};
 </script>
 
-<style>
-.container {
+<style scoped>
+/* .container {
   margin: 1em 5em;
   display: grid;
   grid-template-columns: 25% 75%;
   grid-column-gap: 25px;
-}
+} */
 .filters {
   /* grid-row-start: 1;
   grid-row-end: 3; */

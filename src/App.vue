@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <router-view />
+    <router-view class="mid-content" />
     <Footer />
   </div>
 </template>
@@ -20,24 +20,22 @@ export default {
 </script>
 
 <style>
-html, body {
-    width: 100%;
-    height: 100%;
-}
+html,
 body {
-  margin: 0;
-  font-size: 100%;
+  height: 100%;
 }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  display: grid;
+  /* display: grid;
   min-height: 100%;
   grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100%;
+  grid-template-columns: 100%; */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.mid-content {
+  flex: 1 0 auto;
 }
 a {
   color: white;

@@ -13,7 +13,7 @@ export default new Router({
       component: Home
     },
     {
-      path: "/list",
+      path: "/popular",
       name: "MovieList",
       component: MovieList
     }
