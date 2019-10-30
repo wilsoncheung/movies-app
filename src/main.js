@@ -1,13 +1,15 @@
 import Vue from "vue";
-import Vuex from "vuex";
 import router from "./router";
 import App from "./App.vue";
+import store from './store';
+import moment from 'moment';
 
 Vue.config.productionTip = false;
 
-Vue.use(Vuex);
+Vue.use(moment);
 
 new Vue({
+  store,
   render: h => h(App),
   router
 }).$mount("#app");
