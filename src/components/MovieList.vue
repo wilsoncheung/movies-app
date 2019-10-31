@@ -17,7 +17,7 @@
       </div>
       <div class="row">
         <div
-          class="col s12 m2 l2"
+          class="col s12 m4 l2"
           v-for="movie in allMovies.results"
           :key="movie.id"
         >
