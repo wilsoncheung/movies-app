@@ -16,10 +16,12 @@
         </ul>
       </div>
       <div class="row">
-        <div v-for="movie in allMovies.results" :key="movie.id" class="movie">
-          <div class="col s12 m2 l2">
-            <Movie :theMovie="movie" />
-          </div>
+        <div
+          class="col s12 m2 l2"
+          v-for="movie in allMovies.results"
+          :key="movie.id"
+        >
+          <Movie :theMovie="movie" />
         </div>
       </div>
     </div>
@@ -29,7 +31,6 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Movie from "./Movie.vue";
-// import moment from "moment";
 
 export default {
   name: "MovieList",
