@@ -9,9 +9,13 @@ const getters = {
 };
 
 const actions = {
-    async fetchMovies({ commit }) {
+    async fetchPopularMovies({ commit }) {
         const response = await axios.get('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=ef7291a469f1ea67c2f23af1c31deb42');
-        commit('setMovies', response.data.results);
+        commit('setMovies', response.data);
+    },
+    async fetchPopularMoviesByPage({ commit }, pageNum) {
+        const response = await axios.get('https://api.themoviedb.org/3/discover/movie?api_key=ef7291a469f1ea67c2f23af1c31deb42&sort_by=popularity.desc&page=' + pageNum);
+        commit('setMovies', response.data);
     }
 };
 
