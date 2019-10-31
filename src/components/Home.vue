@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div>
+    <!-- class="container"-->
     <!-- <div class="filters">
         <div>1 things</div>
         <div>2 things</div>
