@@ -36,12 +36,14 @@ body {
 }
 .mid-content {
   flex: 1 0 auto;
+  margin-top: 65px;
 }
 a {
-  color: white;
+  color: #27a699;
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
+  color: #33d6c5;
 }
 </style>

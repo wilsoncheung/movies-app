@@ -38,5 +38,9 @@ export default {
 <style>
 footer {
   background-color: black !important;
+  color: #28d4c2 !important;
+}
+.page-footer .footer-copyright {
+  color: #28d4c2 !important;
 }
 </style>
