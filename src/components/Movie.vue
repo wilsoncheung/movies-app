@@ -48,30 +48,6 @@ export default {
 </script>
 
 <style>
-/* @media screen and (min-width: 993px) and (max-width: 1300px) {
-  .card {
-    height: 300px;
-  }
-}
-@media screen and (min-width: 1301px) {
-  .card .card-image img {
-    height: 258px;
-  } 
-  .card {
-    height: 300px;
-  }
-} */
-/* @media screen and (min-width: 600px) {
-  .card {
-    height: 28vh;
-  }
-} */
-/* .card .card-image img {
-  height: 20vh;
-} */
-/* .mb-45 {
-  margin-bottom: 45px;
-} */
 .card:hover {
   cursor: pointer;
 }

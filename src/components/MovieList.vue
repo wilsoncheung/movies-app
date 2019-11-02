@@ -31,7 +31,7 @@
           </li>
         </ul>
       </div>
-      <div class="row ">
+      <div class="row flex-it">
         <div
           class="col s12 m4 l2 center-align"
           v-for="movie in allMovies.results"
@@ -108,4 +108,12 @@ export default {
 /* .mb-45 {
   margin-bottom: 45px;
 } */
+.flex-it {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-it:after {
+  content: "";
+  flex: auto;
+}
 </style>
