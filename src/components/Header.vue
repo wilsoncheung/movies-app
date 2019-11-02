@@ -8,7 +8,7 @@
       </div>
       <router-link to="list">List</router-link>
   </header> -->
-  <div>
+  <div class="navbar-fixed">
     <nav class="nav-center">
       <div class="container nav-wrapper">
         <router-link to="/" class="brand-logo">
@@ -57,13 +57,12 @@ a:hover {
   text-decoration: none !important;
   color: gray;
 }
-.brand-logo {
-  /* display: flex;
-  align-items: center; */
-  /* padding: 0 5em 0 7em !important; */
+nav a {
+  color: #28d4c2 !important;
+  text-decoration: none;
 }
-/* .site-name {
-  font-size: 25px;
-  padding: 0 10px;
-} */
+nav a:hover {
+  text-decoration: underline;
+  color: #27a699 !important;
+}
 </style>
