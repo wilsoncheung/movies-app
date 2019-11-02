@@ -3,7 +3,7 @@
     <div class="card-image">
       <img
         class="activator"
-        :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        :src="'https://image.tmdb.org/t/p/original' + movie.poster_path"
       />
       <span
         class="btn-floating halfway-fab waves-effect waves-light center-align"
@@ -11,16 +11,14 @@
         <span class="text-center">{{ movie.vote_average }}</span>
       </span>
     </div>
-    <div class="card-content">
-      <span class="card-title activator">
-        <p class="valign-wrapper row" title="Vote Count">
-          <i class="material-icons">people_outline</i>:
-          {{ movie.vote_count }}
-        </p>
-        <p class="valign-wrapper row" title="Release Date">
-          <i class="material-icons">today</i>:
-          {{ movie.release_date }}
-        </p>
+    <div class="card-content valign center-block activator">
+      <span class="card-title">
+        <blockquote class="valign-wrapper" title="Vote Count">
+          <i class="material-icons">people_outline</i>: {{ movie.vote_count }}
+        </blockquote>
+        <blockquote class="valign-wrapper" title="Release Date">
+          <i class="material-icons">today</i>: {{ movie.release_date }}
+        </blockquote>
       </span>
     </div>
     <div class="card-reveal">
@@ -50,6 +48,30 @@ export default {
 </script>
 
 <style>
+/* @media screen and (min-width: 993px) and (max-width: 1300px) {
+  .card {
+    height: 300px;
+  }
+}
+@media screen and (min-width: 1301px) {
+  .card .card-image img {
+    height: 258px;
+  } 
+  .card {
+    height: 300px;
+  }
+} */
+/* @media screen and (min-width: 600px) {
+  .card {
+    height: 28vh;
+  }
+} */
+/* .card .card-image img {
+  height: 20vh;
+} */
+/* .mb-45 {
+  margin-bottom: 45px;
+} */
 .card:hover {
   cursor: pointer;
 }
@@ -70,5 +92,17 @@ export default {
 }
 .card .card-reveal > p {
   padding-top: 15px;
+}
+blockquote {
+  margin: 0;
+  padding-left: 0.5rem;
+  border-left: 5px solid #26a69a;
+}
+.pagination li.active {
+  background-color: #26a69a !important;
+}
+.pagination li:not(.active) a:hover {
+  color: #27a699 !important;
+  font-weight: bold;
 }
 </style>
