@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container popular">
     <h2>Popular</h2>
     <div class="movies">
       <div class="row center-align">
@@ -86,6 +86,7 @@ export default {
   },
   created() {
     this.fetchPopularMovies();
+
     window.addEventListener("keydown", e => {
       //console.log(e);
       if (e.key == "ArrowLeft" || e.keyCode == "37") {
@@ -100,14 +101,9 @@ export default {
 </script>
 
 <style>
-/* @media screen and (min-width: 993px) {
-  .fix-height {
-    height: 27rem;
-  }
-} */
-/* .mb-45 {
-  margin-bottom: 45px;
-} */
+.popular {
+  margin-top: 65px;
+}
 .flex-it {
   display: flex;
   flex-wrap: wrap;

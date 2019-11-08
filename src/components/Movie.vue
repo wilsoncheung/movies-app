@@ -14,10 +14,12 @@
     <div class="card-content valign center-block activator">
       <span class="card-title">
         <blockquote class="valign-wrapper" title="Vote Count">
-          <i class="material-icons">people_outline</i>: {{ movie.vote_count }}
+          <i class="material-icons">people_outline</i>: {{ movie.popularity }}
+          <!--vote_count-->
         </blockquote>
         <blockquote class="valign-wrapper" title="Release Date">
-          <i class="material-icons">today</i>: {{ movie.release_date }}
+          <i class="material-icons">today</i>:
+          {{ formatDate(movie.release_date) }}
         </blockquote>
       </span>
     </div>
@@ -36,11 +38,16 @@ import moment from "moment";
 export default {
   name: "Movie",
   props: ["theMovie"],
+  methods: {
+    formatDate(date) {
+      return moment(date).format("MM/DD/YY");
+    }
+  },
   computed: {
     movie() {
-      this.theMovie.release_date = moment(this.theMovie.release_date).format(
-        "MM/DD/YY"
-      );
+      // this.theMovie.release_date = moment(this.theMovie.release_date).format(
+      //   "MM/DD/YY"
+      // );
       return this.theMovie;
     }
   }
@@ -72,7 +79,7 @@ export default {
 blockquote {
   margin: 0;
   padding-left: 0.5rem;
-  border-left: 5px solid #26a69a;
+  border-left: 5px solid #26a69a !important;
 }
 .pagination li.active {
   background-color: #26a69a !important;
