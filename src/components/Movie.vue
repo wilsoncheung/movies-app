@@ -14,7 +14,7 @@
     <div class="card-content valign center-block activator">
       <span class="card-title">
         <blockquote class="valign-wrapper" title="Vote Count">
-          <i class="material-icons">people_outline</i>: {{ movie.popularity }}
+          <i class="material-icons">people_outline</i>: {{ movie.vote_count }}
           <!--vote_count-->
         </blockquote>
         <blockquote class="valign-wrapper" title="Release Date">

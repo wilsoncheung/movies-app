@@ -34,7 +34,7 @@
       <div class="row flex-it">
         <div
           class="col s12 m4 l2 center-align"
-          v-for="movie in allMovies.results"
+          v-for="movie in allPopularMovies"
           :key="movie.id"
         >
           <Movie :theMovie="movie" />
@@ -61,7 +61,11 @@ export default {
     Movie
   },
   methods: {
-    ...mapActions(["fetchPopularMovies", "fetchPopularMoviesByPage"]),
+    ...mapActions([
+      "fetchPopularMovies",
+      "fetchPopularMoviesByPage",
+      "resetMovieState"
+    ]),
     loadPage(pageNumClicked) {
       if (pageNumClicked !== this.currentPage) {
         this.currentPage = pageNumClicked;
@@ -82,9 +86,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["allMovies"])
+    //...mapGetters(["allMovies"])
+    ...mapGetters(["allPopularMovies"])
   },
   created() {
+    this.resetMovieState();
     this.fetchPopularMovies();
 
     window.addEventListener("keydown", e => {
