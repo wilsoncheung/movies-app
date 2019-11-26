@@ -140,4 +140,7 @@ hr {
   content: "";
   flex: auto;
 }
+.video-container {
+  margin-bottom: 1em;
+}
 </style>

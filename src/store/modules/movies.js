@@ -25,22 +25,22 @@ const state = () => getDefaultState()
 const getters = {
     allPopularMovies: (state) => {
         if (state.movies.popular) {
-            let orderedByPopularity = _.orderBy(state.movies.popular.results, 'popularity', 'desc');
-            return orderedByPopularity;
+            let sortedPopularMovies = _.orderBy(state.movies.popular.results, 'popularity', 'desc');
+            return sortedPopularMovies;
         }
     },
     trendingMovies: (state) => num => {
         if (state.movies.trending.results) {
-            let filteredMovies = _.orderBy(state.movies.trending.results, 'popularity', 'desc').slice(0, num);
-            return filteredMovies;
+            let sortedTrendingMovies = _.orderBy(state.movies.trending.results, 'popularity', 'desc').slice(0, num);
+            return sortedTrendingMovies;
         }
     },
     upcomingMovies: (state) => num => {
         // Add check here cause route changes, is too quick for states to be changed...idk further RnD required
         if (state.movies.upcoming.results) {
-            let filteredMovies = state.movies.upcoming.results.filter(movie => movie.poster_path != null && movie.popularity > 10);
-            filteredMovies = _.orderBy(_.orderBy(filteredMovies, 'popularity', 'desc').slice(0, num), 'release_date');
-            return filteredMovies;
+            let filteredUpcomingMovies = state.movies.upcoming.results.filter(movie => movie.poster_path != null && movie.popularity > 10);
+            filteredUpcomingMovies = _.orderBy(_.orderBy(filteredUpcomingMovies, 'popularity', 'desc').slice(0, num), 'release_date');
+            return filteredUpcomingMovies;
         }
     },
     topTrailers: (state) => state.trailer,  // Remove these stupid getters
