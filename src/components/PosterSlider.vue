@@ -2,15 +2,17 @@
   <div class="slider row">
     <ul class="slides">
       <li v-for="movie in theMovies" :key="movie.id">
-        <img
-          :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
-        />
-        <div class="caption left-align">
-          <h3 class="white-text ">{{ movie.title }}</h3>
-          <h5 class="white-text ">
-            {{ formatDate(movie.release_date) }}
-          </h5>
-        </div>
+        <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
+          <img
+            :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
+          />
+          <div class="caption left-align">
+            <h3 class="white-text ">{{ movie.title }}</h3>
+            <h5 class="white-text ">
+              {{ formatDate(movie.release_date) }}
+            </h5>
+          </div>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -30,7 +32,6 @@ export default {
   updated() {
     // Called here instead of "mounted" because data is not ready before mounted
     $(document).ready(function() {
-      console.log(this.allTrendingMovies);
       $(".slider").slider({
         interval: 5000
       });

@@ -18,13 +18,13 @@
           <i class="material-icons">menu</i>
         </a>
         <ul id="nav-mobile" class=" hide-on-med-and-down">
-          <li><router-link to="popular">Popular</router-link></li>
+          <li><router-link to="/popular">Popular</router-link></li>
         </ul>
       </div>
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-      <li><router-link to="popular">Popular</router-link></li>
+      <li><router-link to="/popular">Popular</router-link></li>
     </ul>
   </div>
 </template>

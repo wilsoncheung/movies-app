@@ -74,7 +74,6 @@ const actions = {
         Promise.all([
             dispatch('fetchUpcomingMovies'), dispatch('fetchTrendingMovies'),
         ]).then(([upcomingMovies, trendingMovies]) => {
-            console.log("then")
             if (upcomingMovies && trendingMovies) {
                 commit('SET_UPCOMING_MOVIES', upcomingMovies.data);
                 commit('SET_TRENDING_MOVIES', trendingMovies.data);
