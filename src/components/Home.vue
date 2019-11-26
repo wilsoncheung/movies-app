@@ -52,7 +52,7 @@
             v-for="movie in upcomingMovies(6)"
             :key="movie.id"
           >
-            <Movie :theMovie="movie" />
+            <MovieCard :theMovie="movie" />
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Movie from "./Movie.vue";
+import MovieCard from "./MovieCard.vue";
 import PosterSlider from "./PosterSlider.vue";
 import _ from "lodash";
 import moment from "moment";
@@ -80,7 +80,7 @@ export default {
     };
   },
   components: {
-    Movie,
+    MovieCard,
     PosterSlider
   },
   methods: {

@@ -37,7 +37,7 @@
           v-for="movie in allPopularMovies"
           :key="movie.id"
         >
-          <Movie :theMovie="movie" />
+          <MovieCard :theMovie="movie" />
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import Movie from "./Movie.vue";
+import MovieCard from "./MovieCard.vue";
 
 export default {
   name: "MovieList",
@@ -58,7 +58,7 @@ export default {
     };
   },
   components: {
-    Movie
+    MovieCard
   },
   methods: {
     ...mapActions([
