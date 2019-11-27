@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-// Factory Function
+// Factory Function, use to reset state
 const getDefaultState = () => {
     return {
         //movies: []
@@ -11,7 +11,8 @@ const getDefaultState = () => {
             trending: [],
             nowPlaying: []
         },
-        trailer: []
+        trailer: [],
+        movieDetails: {}
     }
 }
 
@@ -43,7 +44,7 @@ const getters = {
             return filteredUpcomingMovies;
         }
     },
-    topTrailers: (state) => state.trailer,  // Remove these stupid getters
+    trailers: (state) => state.trailer                  // Remove these stupid getters
 };
 
 const actions = {
@@ -91,8 +92,23 @@ const actions = {
             let trailerUrl = "https://www.youtube.com/embed/" + videoKey;
             nowPlayingTrailerUrls.push(trailerUrl);
         }
+        commit('SET_TRAILER_URL', nowPlayingTrailerUrls);
+    },
+    async fetchMovieDetails({ commit }, movieId) {
+        // let movieDetails = await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US')
+        // let videoResponse = await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US');
+        // let trailerUrl = "https://www.youtube.com/embed/" + videoResponse.data.results.filter(t => t.type === "Trailer")[0].key;
 
-        commit('SET_TRAILER_URL', nowPlayingTrailerUrls)
+        Promise.all([
+            await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data),
+            await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data)
+        ]).then(([movieDetails, videoDetails]) => {
+            if (movieDetails && videoDetails) {
+                let trailerUrl = "https://www.youtube.com/embed/" + videoDetails.results.filter(t => t.type === "Trailer")[0].key;
+                commit('SET_MOVIE_DETAILS', movieDetails);
+                commit('SET_TRAILER_URL', trailerUrl);
+            }
+        }).catch((error) => console.log(error));
     }
 };
 
@@ -100,6 +116,7 @@ const mutations = {
     RESET_STATE(state) {
         // Merge rather than replace so we don't lose observers
         // https://github.com/vuejs/vuex/issues/1118
+        // https://tahazsh.com/vuebyte-reset-module-state
         Object.assign(state, getDefaultState())
     },
     // movies here is the 'response.data' in actions
@@ -118,6 +135,9 @@ const mutations = {
     ),
     SET_TRAILER_URL: (state, urls) => (
         state.trailer = urls
+    ),
+    SET_MOVIE_DETAILS: (state, details) => (
+        state.movieDetails = details
     )
 };
 

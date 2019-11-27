@@ -26,7 +26,7 @@
         <hr />
         <div
           class="col s12 m4 l4"
-          v-for="(url, index) in topTrailers"
+          v-for="(url, index) in trailers"
           :key="index"
         >
           <div class="video-container z-depth-4">
@@ -65,7 +65,7 @@
 import { mapGetters, mapActions } from "vuex";
 import MovieCard from "./MovieCard.vue";
 import PosterSlider from "./PosterSlider.vue";
-import _ from "lodash";
+// import _ from "lodash";
 import moment from "moment";
 
 export default {
@@ -108,7 +108,7 @@ export default {
     // });
   },
   computed: {
-    ...mapGetters(["upcomingMovies", "trendingMovies", "topTrailers"])
+    ...mapGetters(["upcomingMovies", "trendingMovies", "trailers"])
   },
   created() {
     this.resetMovieState();
