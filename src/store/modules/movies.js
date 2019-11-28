@@ -95,16 +95,12 @@ const actions = {
         commit('SET_TRAILER_URL', nowPlayingTrailerUrls);
     },
     async fetchMovieDetails({ commit }, movieId) {
-        // let movieDetails = await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US')
-        // let videoResponse = await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US');
-        // let trailerUrl = "https://www.youtube.com/embed/" + videoResponse.data.results.filter(t => t.type === "Trailer")[0].key;
-
         Promise.all([
-            await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data),
-            await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data)
-        ]).then(([movieDetails, videoDetails]) => {
-            if (movieDetails && videoDetails) {
-                let trailerUrl = "https://www.youtube.com/embed/" + videoDetails.results.filter(t => t.type === "Trailer")[0].key;
+            await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&append_to_response=videos,credits,external_ids,similar,reviews,images&include_image_language=en,null').then((response) => response.data)
+            //,await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data)
+        ]).then(([movieDetails]) => {
+            if (movieDetails) {
+                let trailerUrl = "https://www.youtube.com/embed/" + movieDetails.videos.results.filter(t => t.type === "Trailer")[0].key;
                 commit('SET_MOVIE_DETAILS', movieDetails);
                 commit('SET_TRAILER_URL', trailerUrl);
             }
