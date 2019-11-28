@@ -1,5 +1,5 @@
 <template>
-  <div id="search-bar">
+  <div>
     <div class="container row">
       <form class="col s12">
         <div class="row">
