@@ -15,7 +15,8 @@
       <div class="card-content valign center-block activator">
         <span class="card-title">
           <blockquote class="valign-wrapper" title="Vote Count">
-            <i class="material-icons">people_outline</i>: {{ movie.vote_count }}
+            <i class="material-icons">people_outline</i>:
+            {{ movie.vote_count }}
             <!--vote_count-->
           </blockquote>
           <blockquote class="valign-wrapper" title="Release Date">
@@ -24,12 +25,12 @@
           </blockquote>
         </span>
       </div>
-      <div class="card-reveal">
+      <!-- <div class="card-reveal">
         <span class="card-title">
           <i class="material-icons right">close</i>
         </span>
         <p>{{ movie.overview }}</p>
-      </div>
+      </div> -->
     </div>
   </router-link>
 </template>
@@ -78,9 +79,9 @@ export default {
 .card .card-reveal > p {
   padding-top: 15px;
 }
-blockquote {
-  margin: 0;
-  padding-left: 0.5rem;
+.card-title blockquote {
+  margin: 0 !important;
+  padding-left: 0.5rem !important;
   border-left: 5px solid #26a69a !important;
 }
 .pagination li.active {

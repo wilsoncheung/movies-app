@@ -12,7 +12,15 @@ const getDefaultState = () => {
             nowPlaying: []
         },
         trailer: [],
-        movieDetails: {}
+        movieDetails: {
+            similar: {
+                results: []
+            },
+            credits: {
+                cast: [],
+                crew: []
+            }
+        }
     }
 }
 
@@ -44,7 +52,35 @@ const getters = {
             return filteredUpcomingMovies;
         }
     },
-    trailers: (state) => state.trailer                  // Remove these stupid getters
+    trailers: (state) => state.trailer,                  // Remove these stupid getters
+    casts: (state) => num => {
+        if (state.movieDetails.credits) {
+            return state.movieDetails.credits.cast.slice(0, num);
+        }
+    },
+    // crews: (state) => {
+    //     if (state.movieDetails.credits) {
+    //         let staff = _.uniq(state.movieDetails.credits.crew.map(c => ({ Name: c.name, Job: c.job }))).filter(j => j.Job === "Director" || j.Job === "Producer" || j.Job === "Writer" || j.Job === "Screenplay");
+    //         // converted array into key value pairs
+    //         staff = staff.reduce((arr, c) => {
+    //             arr[c.Job] = c.Name;
+    //             return arr;
+    //         }, {});
+
+    //         return staff;
+    //     }
+    // },
+    reviews: (state) => num => {
+        if (state.movieDetails.reviews) {
+            return state.movieDetails.reviews.results.slice(0, num);
+        }
+    },
+    similarMovies: (state) => num => {
+        if (state.movieDetails.similar) {
+            return _.orderBy(_.orderBy(state.movieDetails.similar.results, 'popularity', 'desc').slice(0, num), 'release_date', 'desc');
+        }
+    }
+
 };
 
 const actions = {
@@ -100,9 +136,12 @@ const actions = {
             //,await axios.get('https://api.themoviedb.org/3/movie/' + movieId + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US').then((response) => response.data)
         ]).then(([movieDetails]) => {
             if (movieDetails) {
-                let trailerUrl = "https://www.youtube.com/embed/" + movieDetails.videos.results.filter(t => t.type === "Trailer")[0].key;
                 commit('SET_MOVIE_DETAILS', movieDetails);
-                commit('SET_TRAILER_URL', trailerUrl);
+
+                if (movieDetails.videos.results.length !== 0) {
+                    let trailerUrl = "https://www.youtube.com/embed/" + movieDetails.videos.results.filter(t => t.type === "Trailer")[0].key;
+                    commit('SET_TRAILER_URL', trailerUrl);
+                }
             }
         }).catch((error) => console.log(error));
     }
