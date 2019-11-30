@@ -23,11 +23,19 @@ export default new Router({
       path: "/movie/:id",
       name: "MovieDetails",
       props: true,
-      component: MovieDetails
+      component: MovieDetails,
+      // https://router.vuejs.org/guide/advanced/navigation-guards.html#per-route-guard
+      beforeEnter: (to, from, next) => {
+        //console.log('Entering Component!')
+        next()
+      }
     },
     {
       path: "*",
       component: NotFound
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });

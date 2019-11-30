@@ -32,6 +32,11 @@
         </ul>
       </div>
       <div class="row flex-it">
+        <!-- <transition-group
+          mode="out-in"
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
+        > -->
         <div
           class="col s12 m4 l2 center-align"
           v-for="movie in allPopularMovies"
@@ -39,6 +44,7 @@
         >
           <MovieCard :theMovie="movie" />
         </div>
+        <!-- </transition-group> -->
       </div>
     </div>
   </div>
