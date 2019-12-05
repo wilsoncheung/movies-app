@@ -21,7 +21,9 @@ const getDefaultState = () => {
                 crew: []
             }
         },
-        searchResults: {}
+        searchResults: {
+            results: []
+        }
     }
 }
 
@@ -82,7 +84,7 @@ const getters = {
         }
     },
     searchResults: (state) => {
-        return state.searchResults;
+        return state.searchResults.results.map(r => r.title);
     }
 
 };

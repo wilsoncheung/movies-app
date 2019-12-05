@@ -10,7 +10,7 @@
             class="autocomplete"
             placeholder="Search"
             v-model="query"
-            v-on:keyup.enter="search()"
+            v-on:keyup="search()"
           />
           <label for="autocomplete-input"></label>
         </div>
@@ -33,34 +33,45 @@ export default {
     ...mapActions(["searchMovies"]),
     search() {
       this.searchMovies(this.query);
+
+      let results = {};
+
+      for (let r of this.searchResults) {
+        results[r] = null;
+      }
+
+      $(document).ready(function() {
+        $("input.autocomplete").autocomplete({
+          data: this.searchResults,
+          limit: 10
+        });
+      });
     }
   },
   computed: {
     ...mapGetters(["searchResults"])
   },
   created() {
-    let options = {
-      data: {
-        Apple: null,
-        Microsoft: null,
-        Google:
-          "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-        Good: "https://placehold.it/250x250"
-      },
-      limit: 10,
-      onAutocomplete: displayAlert()
-    };
-
-    function displayAlert() {
-      return function(text) {
-        // this.searchMovies(text);
-        console.log(text);
-      };
-    }
-
-    $(document).ready(function() {
-      $("input.autocomplete").autocomplete(options);
-    });
+    // let options = {
+    //   data: {
+    //     Apple: null,
+    //     Microsoft: null,
+    //     Google:
+    //       "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
+    //     Good: "https://placehold.it/250x250"
+    //   },
+    //   limit: 10,
+    //   onAutocomplete: displayAlert()
+    // };
+    // function displayAlert() {
+    //   return function(text) {
+    //     // this.searchMovies(text);
+    //     console.log(text);
+    //   };
+    // }
+    // $(document).ready(function() {
+    //   $("input.autocomplete").autocomplete(options);
+    // });
   }
 };
 </script>
