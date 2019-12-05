@@ -20,6 +20,9 @@ const getDefaultState = () => {
                 cast: [],
                 crew: []
             }
+        },
+        searchResults: {
+
         }
     }
 }
@@ -79,6 +82,9 @@ const getters = {
         if (state.movieDetails.similar) {
             return _.orderBy(_.orderBy(state.movieDetails.similar.results, 'popularity', 'desc').slice(0, num), 'release_date', 'desc');
         }
+    },
+    searchResults: (state) => {
+        return state.searchResults;
     }
 
 };
@@ -144,6 +150,10 @@ const actions = {
                 }
             }
         }).catch((error) => console.log(error));
+    },
+    async searchMovies({ commit }, query) {
+        const response = await axios.get('https://api.themoviedb.org/3/search/movie?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&query=' + query + '&include_adult=false');
+        commit('SET_SEARCH_RESULTS', response.data);
     }
 };
 
@@ -173,7 +183,10 @@ const mutations = {
     ),
     SET_MOVIE_DETAILS: (state, details) => (
         state.movieDetails = details
-    )
+    ),
+    SET_SEARCH_RESULTS: (state, results) => {
+        state.searchResults = results
+    }
 };
 
 export default {
