@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container row">
+    <!-- <div class="container row">
       <form class="col s12">
         <div class="row">
           <div class="input-field col s12">
@@ -11,11 +11,14 @@
               class="autocomplete"
               placeholder="Search"
             />
-            <!-- <label for="autocomplete-input">Search</label> -->
+            <label for="autocomplete-input">Search</label>
           </div>
         </div>
       </form>
-    </div>
+    </div> -->
+
+    <SearchBar />
+
     <!--Carousel-->
     <div class="container">
       <PosterSlider :theMovies="trendingMovies(7)" />
@@ -65,6 +68,7 @@
 import { mapGetters, mapActions } from "vuex";
 import MovieCard from "./MovieCard.vue";
 import PosterSlider from "./PosterSlider.vue";
+import SearchBar from "./SearchBar.vue";
 // import _ from "lodash";
 import moment from "moment";
 
@@ -81,7 +85,8 @@ export default {
   },
   components: {
     MovieCard,
-    PosterSlider
+    PosterSlider,
+    SearchBar
   },
   methods: {
     ...mapActions([
