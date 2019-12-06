@@ -1,14 +1,5 @@
 <template>
-  <!-- <header>
-      <div class="logo">
-          <router-link to="/">
-            <i class="fas fa-film fa-3x"></i>
-            <span class="site-name"> Movie App </span>
-          </router-link>
-      </div>
-      <router-link to="list">List</router-link>
-  </header> -->
-  <div class="navbar-fixed">
+  <!-- <div class="navbar-fixed">
     <nav class="nav-center">
       <div class="container nav-wrapper">
         <router-link to="/" class="brand-logo">
@@ -26,21 +17,45 @@
     <ul class="sidenav" id="mobile-demo">
       <li><router-link to="/popular">Popular</router-link></li>
     </ul>
-  </div>
+  </div> -->
+  <nav>
+    <v-app-bar app dark>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title><i class="fas fa-film"></i> Movies</v-toolbar-title>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list dense nav>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </nav>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  data() {
+    return {
+      drawer: ""
+    };
+  }
 };
 
-$(document).ready(function() {
-  $(".sidenav").sidenav();
-});
+// $(document).ready(function() {
+//   $(".sidenav").sidenav();
+// });
 </script>
 
-<style>
-nav {
+<style scoped>
+/* nav {
   background-color: black;
 }
 nav.nav-center ul {
@@ -64,5 +79,5 @@ nav a {
 nav a:hover {
   text-decoration: underline;
   color: #27a699 !important;
-}
+} */
 </style>

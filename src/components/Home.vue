@@ -1,20 +1,5 @@
 <template>
   <div>
-    <!-- <div class="container row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">search</i>
-            <input
-              type="text"
-              id="autocomplete-input"
-              class="autocomplete"
-              placeholder="Search"
-            />
-          </div>
-        </div>
-      </form>
-    </div> -->
     <SearchBar />
     <!--Carousel-->
     <div class="container">

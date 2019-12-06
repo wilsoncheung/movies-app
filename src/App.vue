@@ -1,7 +1,11 @@
 <template>
-  <v-app id="app">
+  <v-app>
     <Header />
-    <router-view class="mid-content" />
+    <v-content>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-content>
     <Footer />
   </v-app>
 </template>
@@ -20,24 +24,24 @@ export default {
 </script>
 
 <style>
-html,
+/* html,
 body {
   height: 100%;
-}
+} */
 #app {
   color: #2c3e50;
   /* display: grid;
   min-height: 100%;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 100%; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100%; */
 }
-.mid-content {
+/* .mid-content {
   flex: 1 0 auto;
   margin-top: 65px;
-}
+} */
 a {
   color: #27a699;
   text-decoration: none;
