@@ -84,7 +84,7 @@ const getters = {
         }
     },
     searchResults: (state) => {
-        return state.searchResults.results.map(r => r.title);
+        return state.searchResults.results;
     }
 
 };
@@ -125,14 +125,17 @@ const actions = {
 
         // Should be a better way of doing this..
         let response = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&page=1&region=us');
-        let movieIds = _.orderBy(_.orderBy(response.data.results, 'popularity', 'desc'), 'release_date').slice(0, 3).map(m => m.id);
+        let movies = (_.orderBy(_.orderBy(response.data.results, 'release_date', 'desc'), 'popularity', 'desc')).slice(0, 3);
         let nowPlayingTrailerUrls = [];
 
-        for (let i = 0; i < 3; i++) {
-            let response = await axios.get('https://api.themoviedb.org/3/movie/' + movieIds[i] + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US');
+        for (let i = 0; i < movies.length; i++) {
+            let response = await axios.get('https://api.themoviedb.org/3/movie/' + movies[i].id + '/videos?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US');
             let videoKey = response.data.results.filter(t => t.type === "Trailer")[0].key;
             let trailerUrl = "https://www.youtube.com/embed/" + videoKey;
-            nowPlayingTrailerUrls.push(trailerUrl);
+            nowPlayingTrailerUrls.push({
+                trailerUrl: trailerUrl,
+                releaseDate: movies[i].release_date
+            });
         }
         commit('SET_TRAILER_URL', nowPlayingTrailerUrls);
     },
@@ -152,8 +155,10 @@ const actions = {
         }).catch((error) => console.log(error));
     },
     async searchMovies({ commit }, query) {
-        const response = await axios.get('https://api.themoviedb.org/3/search/movie?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&query=' + query + '&include_adult=false');
-        commit('SET_SEARCH_RESULTS', response.data);
+        if (query) {
+            const response = await axios.get('https://api.themoviedb.org/3/search/movie?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&query=' + query + '&include_adult=false');
+            commit('SET_SEARCH_RESULTS', response.data);
+        }
     }
 };
 

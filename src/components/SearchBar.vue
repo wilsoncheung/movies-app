@@ -1,5 +1,5 @@
 <template>
-  <div id="search-bar" class="container row">
+  <div id="search-bar" class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s12">
@@ -26,57 +26,59 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      query: ""
+      query: "",
+      selectedItem: ""
     };
   },
   methods: {
     ...mapActions(["searchMovies"]),
-    search() {
-      this.searchMovies(this.query);
+    goToMovie(val) {
+      // console.log(val);
+      this.$router.push({ name: "MovieDetails", params: { id: val.id } });
+    },
+    search: function() {
+      var self = this; // set the Vue 'this' so it can used inside jquery function later
+
+      self.searchMovies(self.query);
 
       let results = {};
 
-      for (let r of this.searchResults) {
-        results[r] = null;
+      for (let r of self.searchResults) {
+        results[r.title] = null;
       }
 
-      $(document).ready(function() {
-        $("input.autocomplete").autocomplete({
-          data: this.searchResults,
-          limit: 10
-        });
+      // THIS WAS WHAT CAUSING THE AUTOCOMPLETE-OPTIONS/ DROPDOWN NOT SHOWING...
+      // // $(document).ready(function() {
+      $("input.autocomplete").autocomplete({
+        data: results,
+        limit: 10,
+        onAutocomplete: function(val) {
+          let itemSelected = self.searchResults.filter(r => r.title === val)[0];
+          if (itemSelected) {
+            self.goToMovie(itemSelected);
+          }
+        }
       });
+      // // });
+
+      $(".autocomplete").autocomplete("open");
+
+      // let elems = document.querySelectorAll(".autocomplete");
+      // let instances = M.Autocomplete.init(elems, { data: {}, limit: 10 });
+      // instances[0].updateData(results);
+      // instances[0].open();
     }
   },
   computed: {
     ...mapGetters(["searchResults"])
-  },
-  created() {
-    // let options = {
-    //   data: {
-    //     Apple: null,
-    //     Microsoft: null,
-    //     Google:
-    //       "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg",
-    //     Good: "https://placehold.it/250x250"
-    //   },
-    //   limit: 10,
-    //   onAutocomplete: displayAlert()
-    // };
-    // function displayAlert() {
-    //   return function(text) {
-    //     // this.searchMovies(text);
-    //     console.log(text);
-    //   };
-    // }
-    // $(document).ready(function() {
-    //   $("input.autocomplete").autocomplete(options);
-    // });
   }
 };
 </script>
 
 <style>
+#search-bar {
+  margin-bottom: 0;
+}
 #search-bar > form > .row {
   margin-bottom: 0 !important;
 }
