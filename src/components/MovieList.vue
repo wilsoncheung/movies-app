@@ -1,6 +1,7 @@
 <template>
   <div class="container popular">
-    <h2>Popular</h2>
+    <SearchBar />
+    <h2 class="pageTitle">Popular</h2>
     <div class="movies">
       <div class="row center-align">
         <ul class="pagination">
@@ -31,21 +32,20 @@
           </li>
         </ul>
       </div>
-      <div class="row flex-it">
-        <!-- <transition-group
-          mode="out-in"
-          enter-active-class="animated fadeIn"
-          leave-active-class="animated fadeOut"
-        > -->
+      <transition-group
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+        mode="out-in"
+        class="row flex-it"
+      >
         <div
-          class="col s12 m4 l2 center-align"
+          class="col s6 m4 l2 center-align"
           v-for="movie in allPopularMovies"
           :key="movie.id"
         >
           <MovieCard :theMovie="movie" />
         </div>
-        <!-- </transition-group> -->
-      </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import MovieCard from "./MovieCard.vue";
+import SearchBar from "./SearchBar.vue";
 
 export default {
   name: "MovieList",
@@ -64,7 +65,8 @@ export default {
     };
   },
   components: {
-    MovieCard
+    MovieCard,
+    SearchBar
   },
   methods: {
     ...mapActions([
@@ -113,6 +115,9 @@ export default {
 </script>
 
 <style>
+.pageTitle {
+  margin-top: 0;
+}
 .popular {
   margin-top: 65px;
 }

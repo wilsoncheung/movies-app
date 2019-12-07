@@ -1,27 +1,10 @@
 <template>
-  <div>
-    <!-- <div class="container row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">search</i>
-            <input
-              type="text"
-              id="autocomplete-input"
-              class="autocomplete"
-              placeholder="Search"
-            />
-            <label for="autocomplete-input">Search</label>
-          </div>
-        </div>
-      </form>
-    </div> -->
-
+  <div class="container">
     <SearchBar />
-
-    <!--Carousel-->
-    <div class="container">
+    <div>
+      <!--Carousel-->
       <PosterSlider :theMovies="trendingMovies(7)" />
+      <!--//-->
 
       <!--Now Playing Video Gallery-->
       <div class="row center-align">
@@ -29,18 +12,21 @@
         <hr />
         <div
           class="col s12 m4 l4"
-          v-for="(url, index) in trailers"
+          v-for="(trailer, index) in trailers"
           :key="index"
         >
           <div class="video-container z-depth-4">
             <iframe
               width="375"
               height="210"
-              :src="url"
+              :src="trailer.trailerUrl"
               frameborder="0"
               allowfullscreen
             ></iframe>
           </div>
+          <p>
+            <strong>{{ formatDate(trailer.releaseDate) }}</strong>
+          </p>
         </div>
       </div>
       <!--//-->
@@ -51,7 +37,7 @@
         <hr />
         <div class="row flex-it">
           <div
-            class="col s12 m2 l2"
+            class="col s6 m2 l2"
             v-for="movie in upcomingMovies(6)"
             :key="movie.id"
           >

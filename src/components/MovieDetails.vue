@@ -1,5 +1,6 @@
 <template>
   <div class="container movie-details">
+    <SearchBar />
     <blockquote>
       <h3 class="movie-details-title">
         {{ movieDetails.title }}
@@ -188,13 +189,15 @@
 <script>
 import { mapGetters, mapActions, mapState } from "vuex";
 import MovieCard from "./MovieCard.vue";
+import SearchBar from "./SearchBar.vue";
 import moment from "moment";
 
 export default {
   name: "MovieDetails",
   props: ["id"],
   components: {
-    MovieCard
+    MovieCard,
+    SearchBar
   },
   data() {
     return {
@@ -298,6 +301,7 @@ export default {
 <style>
 .material-icons {
   padding-right: 3px;
+  color: #27a699;
 }
 .subtext {
   font-size: 85%;
@@ -309,11 +313,12 @@ export default {
 .movie-details blockquote {
   margin-bottom: 2em;
 }
-.movie-details {
+/* .movie-details {
   margin-top: 45px !important;
-}
+} */
 .movie-details-title {
   margin-bottom: 0;
+  margin-top: 0;
 }
 .movie-details blockquote .row {
   margin: 7px 0;
