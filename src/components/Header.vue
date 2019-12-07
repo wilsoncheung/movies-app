@@ -1,13 +1,4 @@
 <template>
-  <!-- <header>
-      <div class="logo">
-          <router-link to="/">
-            <i class="fas fa-film fa-3x"></i>
-            <span class="site-name"> Movie App </span>
-          </router-link>
-      </div>
-      <router-link to="list">List</router-link>
-  </header> -->
   <div class="navbar-fixed">
     <nav class="nav-center">
       <div class="container nav-wrapper">
@@ -24,7 +15,16 @@
     </nav>
 
     <ul class="sidenav" id="mobile-demo">
-      <li><router-link to="/popular">Popular</router-link></li>
+      <li>
+        <router-link to="/">
+          <i class="material-icons">home</i>Home
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/popular">
+          <i class="material-icons">movie_filter</i>Popular Movies
+        </router-link>
+      </li>
     </ul>
   </div>
 </template>

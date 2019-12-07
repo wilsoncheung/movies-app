@@ -46,4 +46,7 @@ a:hover {
   text-decoration: underline;
   color: #33d6c5;
 }
+.sidenav-overlay {
+  z-index: 1; /*Was in the background*/
+}
 </style>
