@@ -23,6 +23,12 @@ const getDefaultState = () => {
         },
         searchResults: {
             results: []
+        },
+        personDetails: {
+            movie_credits: {
+                cast: [],
+                crew: []
+            }
         }
     }
 }
@@ -85,6 +91,25 @@ const getters = {
     },
     searchResults: (state) => {
         return state.searchResults.results;
+    },
+    moviesKnownFor: (state) => num => {
+        if (state.personDetails.movie_credits.cast) {
+            let directed = _.uniqBy(_.orderBy(state.personDetails.movie_credits.crew.filter(c => c.job === "Director" | c.job === "Producer" | c.job === "Executive Producer"), 'vote_count', 'desc'), 'id').slice(0, num);
+
+            let actedIn = _.orderBy(state.personDetails.movie_credits.cast, 'vote_count', 'desc').slice(0, num);
+
+            let movies = state.personDetails.known_for_department === "Directing" ? directed : actedIn;
+
+            return movies;
+        }
+    },
+    roles: (state) => {
+        if (state.personDetails.movie_credits.crew) {
+            let tags = state.personDetails.known_for_department === "Acting" ? ["Actor"] : [];
+            let uniqueRoles =
+                tags = tags.concat(_.uniq(state.personDetails.movie_credits.crew.map(c => c.job)));
+            return tags;
+        }
     }
 
 };
@@ -159,6 +184,10 @@ const actions = {
             const response = await axios.get('https://api.themoviedb.org/3/search/movie?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&query=' + query + '&include_adult=false');
             commit('SET_SEARCH_RESULTS', response.data);
         }
+    },
+    async getPersonDetails({ commit }, personId) {
+        const response = await axios.get('https://api.themoviedb.org/3/person/' + personId + '?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&append_to_response=movie_credits,external_ids');
+        commit('SET_PERSON_DETAILS', response.data);
     }
 };
 
@@ -191,6 +220,9 @@ const mutations = {
     ),
     SET_SEARCH_RESULTS: (state, results) => {
         state.searchResults = results
+    },
+    SET_PERSON_DETAILS: (state, person) => {
+        state.personDetails = person;
     }
 };
 
