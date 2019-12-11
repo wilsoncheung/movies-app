@@ -9,19 +9,19 @@
         <span
           class="btn-floating halfway-fab waves-effect waves-light center-align"
         >
-          <span class="text-center">{{ movie.vote_average }}</span>
+          <span class="text-center">{{ movie.vote_average || "?" }}</span>
         </span>
       </div>
       <div class="card-content valign center-block activator">
         <span class="card-title">
           <blockquote class="valign-wrapper" title="Vote Count">
             <i class="material-icons">people_outline</i>:
-            {{ movie.vote_count }}
+            {{ movie.vote_count || "???" | toNumberFormat }}
             <!--vote_count-->
           </blockquote>
           <blockquote class="valign-wrapper" title="Release Date">
             <i class="material-icons">today</i>:
-            {{ formatDate(movie.release_date) }}
+            {{ formatDate(movie.release_date) || "???" }}
           </blockquote>
         </span>
       </div>

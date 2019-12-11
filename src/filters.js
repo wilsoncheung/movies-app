@@ -13,6 +13,13 @@ Vue.filter('toCurrency', function (value) {
     return formatter.format(value);
 });
 
+Vue.filter('toNumberFormat', function (value) {
+    return typeof value !== "number" ? value : new Intl.NumberFormat().format(value);
+
+})
+
 Vue.filter("toDate", str => moment(str).format("MM/DD/YY"));
 
-Vue.filter("toDateString", str => moment(str).format("MMM DD, YYYY"));
+Vue.filter("toDateString", str => moment(str).format("MMMM DD, YYYY"));
+
+Vue.filter("toYears", str => moment().diff(str, 'years', false) || "???");

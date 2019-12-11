@@ -10,7 +10,7 @@
         <div class="col l1 valign-wrapper">
           <i class="material-icons">access_time</i>
           <span title="Duration">
-            {{ convertToDuration(movieDetails.runtime) }}
+            {{ this.$helpers.convertToDuration(movieDetails.runtime) }}
           </span>
         </div>
         <div class="col l2 valign-wrapper">
@@ -38,7 +38,9 @@
         <div class="row bold-text">
           <div class="col l4 offset-l2 valign-wrapper">
             <i class="material-icons">people_outline</i>
-            <span title="Vote Count">{{ movieDetails.vote_count || "?" }}</span>
+            <span title="Vote Count">{{
+              movieDetails.vote_count || "?" | toNumberFormat
+            }}</span>
           </div>
           <div class="col l4 valign-wrapper">
             <i class="material-icons">trending_up</i>
@@ -93,24 +95,33 @@
               <h6 class="bold-text">
                 Director<span v-if="crews.Directors.length > 1">s</span>:
               </h6>
-              <div v-for="(name, index) in crews.Directors" :key="index">
-                {{ name }}
+              <div v-for="(c, index) in crews.Directors" :key="index">
+                <router-link
+                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                  >{{ c.name }}</router-link
+                >
               </div>
             </div>
             <div class="col l2">
               <h6 class="bold-text">
                 Writer<span v-if="crews.Writers.length > 1">s</span>:
               </h6>
-              <div v-for="(name, index) in crews.Writers" :key="index">
-                {{ name }}
+              <div v-for="(c, index) in crews.Writers" :key="index">
+                <router-link
+                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                  >{{ c.name }}</router-link
+                >
               </div>
             </div>
             <div class="col l2">
               <h6 class="bold-text">
                 Producer<span v-if="crews.Producers.length > 1">s</span>:
               </h6>
-              <div v-for="(name, index) in crews.Producers" :key="index">
-                {{ name }}
+              <div v-for="(c, index) in crews.Producers" :key="index">
+                <router-link
+                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                  >{{ c.name }}</router-link
+                >
               </div>
             </div>
           </div>
@@ -121,13 +132,17 @@
     <div class="row">
       <h4 class="bold-text center-align">Casts</h4>
       <div class="col l2" v-for="cast in casts(6)" :key="cast.cast_id">
-        <div class="card">
-          <div class="card-image">
-            <img
-              :src="'https://image.tmdb.org/t/p/original' + cast.profile_path"
-            />
+        <router-link
+          :to="{ name: 'PersonDetails', params: { personId: cast.id } }"
+        >
+          <div class="card hoverable">
+            <div class="card-image">
+              <img
+                :src="'https://image.tmdb.org/t/p/original' + cast.profile_path"
+              />
+            </div>
           </div>
-        </div>
+        </router-link>
         <div class="center-align bold-text">{{ cast.name }}</div>
         <div class="center-align">{{ cast.character }}</div>
       </div>
@@ -207,15 +222,6 @@ export default {
   methods: {
     ...mapActions(["fetchMovieDetails"]),
 
-    formatDate(date) {
-      return moment(date).format("MM/DD/YY");
-    },
-
-    convertToDuration(minutes) {
-      return minutes
-        ? Math.floor(minutes / 60) + "h " + (minutes % 60) + "min"
-        : "??";
-    },
     truncateText(text) {
       return text.length <= this.commentsLength
         ? text
@@ -260,20 +266,20 @@ export default {
             c.job === "Writer" ||
             c.job === "Screenplay"
         )
-        .map(c => ({ name: c.name, job: c.job }));
+        .map(c => ({ name: c.name, job: c.job, id: c.id }));
 
       for (let i of filteredCrews) {
         if (i.job.toUpperCase() === "DIRECTOR") {
-          staffs.Directors.push(i.name);
+          staffs.Directors.push({ name: i.name, id: i.id });
         }
         if (i.job.toUpperCase() === "PRODUCER") {
-          staffs.Producers.push(i.name);
+          staffs.Producers.push({ name: i.name, id: i.id });
         }
         if (
           i.job.toUpperCase() === "WRITER" ||
           i.job.toUpperCase() === "SCREENPLAY"
         ) {
-          staffs.Writers.push(i.name);
+          staffs.Writers.push({ name: i.name, id: i.id });
         }
       }
 
