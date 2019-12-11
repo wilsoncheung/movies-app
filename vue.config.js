@@ -1,5 +1,6 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production'
-      ? '/movies-app/'
-      : '/'
-  }
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/movies-app/'
+    : '/',
+  lintOnSave: false
+}
