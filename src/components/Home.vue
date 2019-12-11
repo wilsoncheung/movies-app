@@ -55,7 +55,6 @@ import { mapGetters, mapActions } from "vuex";
 import MovieCard from "./MovieCard.vue";
 import PosterSlider from "./PosterSlider.vue";
 import SearchBar from "./SearchBar.vue";
-// import _ from "lodash";
 import moment from "moment";
 
 export default {

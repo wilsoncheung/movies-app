@@ -28,7 +28,10 @@ const getDefaultState = () => {
             movie_credits: {
                 cast: [],
                 crew: []
-            }
+            },
+            external_ids: {},
+            name: "",
+            profile_path: ""
         }
     }
 }
@@ -106,9 +109,7 @@ const getters = {
     roles: (state) => {
         if (state.personDetails.movie_credits.crew) {
             let tags = state.personDetails.known_for_department === "Acting" ? ["Actor"] : [];
-            let uniqueRoles =
-                tags = tags.concat(_.uniq(state.personDetails.movie_credits.crew.map(c => c.job)));
-            return tags;
+            return tags.concat(_.uniq(state.personDetails.movie_credits.crew.map(c => c.job)));
         }
     }
 
@@ -146,7 +147,7 @@ const actions = {
                 commit('SET_UPCOMING_MOVIES', upcomingMovies.data);
                 commit('SET_TRENDING_MOVIES', trendingMovies.data);
             }
-        }).catch((error) => console.log(error));
+        });
 
         // Should be a better way of doing this..
         let response = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&page=1&region=us');
@@ -177,7 +178,7 @@ const actions = {
                     commit('SET_TRAILER_URL', trailerUrl);
                 }
             }
-        }).catch((error) => console.log(error));
+        });
     },
     async searchMovies({ commit }, query) {
         if (query) {
