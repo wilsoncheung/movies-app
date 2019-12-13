@@ -8,6 +8,7 @@
             'https://image.tmdb.org/t/p/original' +
               this.personDetails.profile_path
           "
+          target="_blank"
           v-if="this.personDetails.profile_path"
         />
         <div class="center-align border-box" v-else>
@@ -21,6 +22,7 @@
               'https://www.imdb.com/name/' +
                 this.personDetails.external_ids.imdb_id
             "
+            target="_blank"
             ><i class="fab fa-imdb fa-3x"></i
           ></a>
           <a
@@ -30,6 +32,7 @@
               'https://www.instagram.com/' +
                 this.personDetails.external_ids.instagram_id
             "
+            target="_blank"
             ><i class="fab fa-instagram fa-3x"></i
           ></a>
           <a
@@ -39,6 +42,7 @@
               'https://twitter.com/' +
                 this.personDetails.external_ids.twitter_id
             "
+            target="_blank"
             ><i class="fab fa-twitter-square fa-3x"></i
           ></a>
           <!-- <a
@@ -55,6 +59,7 @@
               'https://en.wikipedia.org/wiki/' +
                 this.$helpers.underscoreText(this.personDetails.name)
             "
+            target="_blank"
             ><i class="fab fa-wikipedia-w fa-3x"></i
           ></a>
         </div>
