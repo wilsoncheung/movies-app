@@ -138,9 +138,9 @@
         </div>
       </div>
 
-      <div class="row">
-        <h4 class="bold-text center-align">Casts</h4>
-        <div class="col l2" v-for="cast in casts(6)" :key="cast.cast_id">
+      <h4 class="bold-text center-align">Casts</h4>
+      <div class="row flex-it">
+        <div class="col s6 l2" v-for="cast in casts(12)" :key="cast.cast_id">
           <router-link
             :to="{ name: 'PersonDetails', params: { personId: cast.id } }"
           >
@@ -199,10 +199,10 @@
         </div>
       </div>
 
-      <div class="row">
-        <h4 class="bold-text center-align">Similar Movies</h4>
+      <h4 class="bold-text center-align">Similar Movies</h4>
+      <div class="row flex-it">
         <div
-          class="col s12 m4 l2 center-align"
+          class="col s6 m4 l2 center-align"
           v-for="movie in similarMovies(6)"
           :key="movie.id"
         >
