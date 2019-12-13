@@ -1,204 +1,219 @@
 <template>
-  <div class="container movie-details">
-    <SearchBar />
-    <blockquote>
-      <h3 class="movie-details-title">
-        {{ movieDetails.title }}
-        <span class="subtext grey-text text-darken-2"> ({{ year }}) </span>
-      </h3>
-      <div class="row">
-        <div class="col l1 valign-wrapper">
-          <i class="material-icons">access_time</i>
-          <span title="Duration">
-            {{ this.$helpers.convertToDuration(movieDetails.runtime) }}
-          </span>
-        </div>
-        <div class="col l2 valign-wrapper">
-          <i class="material-icons">today</i>
-          <span title="Release Date">
-            {{ movieDetails.release_date | toDateString }}
-          </span>
-        </div>
-        <div class="col l4 valign-wrapper">
-          <i class="material-icons">star</i>
-          <span title="Rating">{{ movieDetails.vote_average || "?" }}</span>
-        </div>
-      </div>
-    </blockquote>
-
-    <div class="row">
-      <div class="col s12 l3">
-        <img
-          class="materialboxed responsive-img"
-          :data-caption="movieDetails.tagline"
-          :src="
-            'https://image.tmdb.org/t/p/original' + movieDetails.poster_path
-          "
-        />
-        <div class="row bold-text">
-          <div class="col l4 offset-l2 valign-wrapper">
-            <i class="material-icons">people_outline</i>
-            <span title="Vote Count">{{
-              movieDetails.vote_count || "?" | toNumberFormat
-            }}</span>
+  <transition
+    name="router-animation"
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+  >
+    <div class="container movie-details" :key="$route.params.id">
+      <SearchBar />
+      <blockquote>
+        <h3 class="movie-details-title">
+          {{ movieDetails.title }}
+          <span class="subtext grey-text text-darken-2"> ({{ year }}) </span>
+        </h3>
+        <div class="row">
+          <div class="col l1 valign-wrapper">
+            <i class="material-icons">access_time</i>
+            <span title="Duration">
+              {{ this.$helpers.convertToDuration(movieDetails.runtime) }}
+            </span>
+          </div>
+          <div class="col l2 valign-wrapper">
+            <i class="material-icons">today</i>
+            <span title="Release Date">
+              {{ movieDetails.release_date | toDateString }}
+            </span>
           </div>
           <div class="col l4 valign-wrapper">
-            <i class="material-icons">trending_up</i>
-            <span title="Popularity Score">{{
-              movieDetails.popularity || "?"
-            }}</span>
+            <i class="material-icons">star</i>
+            <span title="Rating">{{ movieDetails.vote_average || "?" }}</span>
           </div>
         </div>
-      </div>
-      <div class="col s12 l8">
-        <div class="video-container" v-if="trailer.length > 0">
-          <iframe
-            width="100%"
-            height="520"
-            :src="trailer"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
-        </div>
-        <div class="center-align border-box" v-if="trailer.length === 0">
-          <h3>No Available Trailer</h3>
-        </div>
-      </div>
-    </div>
+      </blockquote>
 
-    <div class="row">
-      <div class="col l12">
-        <div class="container">
-          <div class="movie-summary">
-            <span v-for="genre in movieDetails.genres" :key="genre.id">
-              <span class="new badge" data-badge-caption="">{{
-                genre.name
+      <div class="row">
+        <div class="col s12 l3">
+          <img
+            class="materialboxed responsive-img"
+            :data-caption="movieDetails.tagline"
+            :src="
+              'https://image.tmdb.org/t/p/original' + movieDetails.poster_path
+            "
+            v-if="movieDetails.poster_path"
+          />
+          <div class="center-align border-box" v-else>
+            <p class="bold-text">No Poster</p>
+          </div>
+          <div class="row bold-text">
+            <div class="col l4 offset-l2 valign-wrapper">
+              <i class="material-icons">people_outline</i>
+              <span title="Vote Count">{{
+                movieDetails.vote_count || "?" | toNumberFormat
               }}</span>
-            </span>
-            <h4 class="bold-text">Summary</h4>
-            <p>{{ movieDetails.overview }}</p>
+            </div>
+            <div class="col l4 valign-wrapper">
+              <i class="material-icons">trending_up</i>
+              <span title="Popularity Score">{{
+                movieDetails.popularity || "?"
+              }}</span>
+            </div>
           </div>
-          <div class="movie-finances row">
-            <div class="col l2">
-              <h6 class="bold-text">Budget:</h6>
-              <span>
-                {{ movieDetails.budget | toCurrency }}
+        </div>
+        <div class="col s12 l8">
+          <div class="video-container" v-if="trailer.length > 0">
+            <iframe
+              width="100%"
+              height="520"
+              :src="trailer"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="center-align border-box" v-if="trailer.length === 0">
+            <h3>No Available Trailer</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l12">
+          <div class="container">
+            <div class="movie-summary">
+              <span v-for="genre in movieDetails.genres" :key="genre.id">
+                <span class="new badge" data-badge-caption="">{{
+                  genre.name
+                }}</span>
               </span>
+              <h4 class="bold-text">Summary</h4>
+              <p>{{ movieDetails.overview }}</p>
             </div>
-            <div class="col l2">
-              <h6 class="bold-text">Revenue:</h6>
-              <span :title="netProfit | toCurrency">
-                {{ movieDetails.revenue || "?" | toCurrency }}
-              </span>
-            </div>
-            <div class="col l2 offset-l2">
-              <h6 class="bold-text">
-                Director<span v-if="crews.Directors.length > 1">s</span>:
-              </h6>
-              <div v-for="(c, index) in crews.Directors" :key="index">
-                <router-link
-                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
-                  >{{ c.name }}</router-link
-                >
+            <div class="movie-finances row">
+              <div class="col l2">
+                <h6 class="bold-text">Budget:</h6>
+                <span>
+                  {{ movieDetails.budget | toCurrency }}
+                </span>
               </div>
-            </div>
-            <div class="col l2">
-              <h6 class="bold-text">
-                Writer<span v-if="crews.Writers.length > 1">s</span>:
-              </h6>
-              <div v-for="(c, index) in crews.Writers" :key="index">
-                <router-link
-                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
-                  >{{ c.name }}</router-link
-                >
+              <div class="col l2">
+                <h6 class="bold-text">Revenue:</h6>
+                <span :title="netProfit | toCurrency">
+                  {{ movieDetails.revenue || "?" | toCurrency }}
+                </span>
               </div>
-            </div>
-            <div class="col l2">
-              <h6 class="bold-text">
-                Producer<span v-if="crews.Producers.length > 1">s</span>:
-              </h6>
-              <div v-for="(c, index) in crews.Producers" :key="index">
-                <router-link
-                  :to="{ name: 'PersonDetails', params: { personId: c.id } }"
-                  >{{ c.name }}</router-link
-                >
+              <div class="col l2 offset-l2">
+                <h6 class="bold-text">
+                  Director<span v-if="crews.Directors.length > 1">s</span>:
+                </h6>
+                <div v-for="(c, index) in crews.Directors" :key="index">
+                  <router-link
+                    :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                    >{{ c.name }}</router-link
+                  >
+                </div>
+              </div>
+              <div class="col l2">
+                <h6 class="bold-text">
+                  Writer<span v-if="crews.Writers.length > 1">s</span>:
+                </h6>
+                <div v-for="(c, index) in crews.Writers" :key="index">
+                  <router-link
+                    :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                    >{{ c.name }}</router-link
+                  >
+                </div>
+              </div>
+              <div class="col l2">
+                <h6 class="bold-text">
+                  Producer<span v-if="crews.Producers.length > 1">s</span>:
+                </h6>
+                <div v-for="(c, index) in crews.Producers" :key="index">
+                  <router-link
+                    :to="{ name: 'PersonDetails', params: { personId: c.id } }"
+                    >{{ c.name }}</router-link
+                  >
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <h4 class="bold-text center-align">Casts</h4>
-      <div class="col l2" v-for="cast in casts(6)" :key="cast.cast_id">
-        <router-link
-          :to="{ name: 'PersonDetails', params: { personId: cast.id } }"
-        >
-          <div class="card hoverable">
-            <div class="card-image">
-              <img
-                :src="'https://image.tmdb.org/t/p/original' + cast.profile_path"
-              />
+      <div class="row">
+        <h4 class="bold-text center-align">Casts</h4>
+        <div class="col l2" v-for="cast in casts(6)" :key="cast.cast_id">
+          <router-link
+            :to="{ name: 'PersonDetails', params: { personId: cast.id } }"
+          >
+            <div class="card hoverable">
+              <div class="card-image" v-if="cast.profile_path">
+                <img
+                  :src="
+                    'https://image.tmdb.org/t/p/original' + cast.profile_path
+                  "
+                />
+              </div>
+              <div class="card-image center-align border-box" v-else>
+                <p class="bold-text">No Photo</p>
+              </div>
             </div>
-          </div>
-        </router-link>
-        <div class="center-align bold-text">{{ cast.name }}</div>
-        <div class="center-align">{{ cast.character }}</div>
+          </router-link>
+          <div class="center-align bold-text">{{ cast.name }}</div>
+          <div class="center-align">{{ cast.character }}</div>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col l12">
-        <div class="container">
-          <h4 class="bold-text center-align">Reviews</h4>
-          <div v-for="review in reviews(5)" :key="review.id">
-            <blockquote>
-              <span class="subtext"
-                ><u> {{ review.author }} </u> -
-              </span>
-              <span v-if="!review.showText">
-                {{ truncateText(review.content) }}
-                <a
-                  class="comment-toggle"
-                  v-if="review.content.length > commentsLength"
-                  @click="$set(review, 'showText', true)"
-                >
-                  (more)
-                </a>
-              </span>
-              <span v-if="review.showText">
-                <span
-                  class="comment-toggle"
-                  @click="review.showText = !review.showText"
-                >
-                  {{ review.content }}
+      <div class="row">
+        <div class="col l12">
+          <div class="container">
+            <h4 class="bold-text center-align">Reviews</h4>
+            <div v-for="review in reviews(5)" :key="review.id">
+              <blockquote>
+                <span class="subtext"
+                  ><u> {{ review.author }} </u> -
                 </span>
-                <!-- <a class="comment-toggle" @click="review.showText = !review.showText">(less)</a> -->
-              </span>
-            </blockquote>
-          </div>
-          <!-- <div class="center-align" v-if="reviews(5)">
+                <span v-if="!review.showText">
+                  {{ truncateText(review.content) }}
+                  <a
+                    class="comment-toggle"
+                    v-if="review.content.length > commentsLength"
+                    @click="$set(review, 'showText', true)"
+                  >
+                    (more)
+                  </a>
+                </span>
+                <span v-if="review.showText">
+                  <span
+                    class="comment-toggle"
+                    @click="review.showText = !review.showText"
+                  >
+                    {{ review.content }}
+                  </span>
+                  <!-- <a class="comment-toggle" @click="review.showText = !review.showText">(less)</a> -->
+                </span>
+              </blockquote>
+            </div>
+            <!-- <div class="center-align" v-if="reviews(5)">
             <h5>None</h5>
           </div> -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <h4 class="bold-text center-align">Similar Movies</h4>
-      <div
-        class="col s12 m4 l2 center-align"
-        v-for="movie in similarMovies(6)"
-        :key="movie.id"
-      >
-        <MovieCard :theMovie="movie" />
-      </div>
-      <!-- <div class="center-align" v-if="similarMovies(6)">
+      <div class="row">
+        <h4 class="bold-text center-align">Similar Movies</h4>
+        <div
+          class="col s12 m4 l2 center-align"
+          v-for="movie in similarMovies(6)"
+          :key="movie.id"
+        >
+          <MovieCard :theMovie="movie" />
+        </div>
+        <!-- <div class="center-align" v-if="similarMovies(6)">
         <h5>None</h5>
       </div> -->
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -220,7 +235,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchMovieDetails"]),
+    ...mapActions(["fetchMovieDetails", "resetMovieState"]),
 
     truncateText(text) {
       return text.length <= this.commentsLength
@@ -229,6 +244,7 @@ export default {
     }
   },
   computed: {
+    // One Possible way of doing it..
     // movieDetails() {
     //   return this.$store.state.movies.movieDetails;
     // }
@@ -286,18 +302,22 @@ export default {
       return staffs;
     }
   },
-  created() {
-    this.fetchMovieDetails(this.id);
-
+  updated() {
+    // Added it here b/c of vue conditional v-if rendering
     $(document).ready(function() {
       $(".materialboxed").materialbox();
     });
+  },
+  created() {
+    this.resetMovieState();
+    this.fetchMovieDetails(this.id);
   },
   // Remember that params or query changes won't trigger enter/leave navigation guards.
   // You can either watch the $route object to react to those changes, or use the
   // beforeRouteUpdate in-component guard.
   beforeRouteUpdate(to, from, next) {
     //console.log("Reusing component!!");
+    this.resetMovieState();
     this.fetchMovieDetails(to.params.id);
     next();
   }

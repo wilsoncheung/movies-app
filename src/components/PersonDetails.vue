@@ -8,7 +8,11 @@
             'https://image.tmdb.org/t/p/original' +
               this.personDetails.profile_path
           "
+          v-if="this.personDetails.profile_path"
         />
+        <div class="center-align border-box" v-else>
+          <p class="bold-text">No Photo</p>
+        </div>
         <div class="row center">
           <a
             class="col s3 l3"
