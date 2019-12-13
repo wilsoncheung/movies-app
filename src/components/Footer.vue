@@ -1,28 +1,37 @@
 <template>
-  <!-- <footer>Test footer</footer> -->
   <footer class="page-footer">
-    <!-- <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Footer Content</h5>
-          <p class="grey-text text-lighten-4">
-            You can use rows and columns here to organize your footer content.
-          </p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-          </ul>
-        </div>
+    <div class="container">
+      <div class="row center">
+        <a href="https://www.themoviedb.org/">
+          <img
+            class="col s6 l2 offset-l5 offset-s3"
+            src="https://www.themoviedb.org/assets/2/v4/logos/powered-by-rectangle-green-dcada16968ed648d5eb3b36bbcfdd8cdf804f723dcca775c8f2bf4cea025aad6.svg"
+          />
+        </a>
       </div>
-    </div> -->
-    <div class="footer-copyright">
-      <div class="container">
-        © 2019 Copyright
+      <div class="row center">
+        <a class="" href="https://github.com/wilsoncheung">
+          <i class="fab fa-github fa-2x"></i>
+        </a>
+        <a
+          class="pl-3"
+          href="https://www.linkedin.com/in/wilson-cheung-1347b549/"
+        >
+          <i class="fab fa-linkedin-in fa-2x"></i>
+        </a>
+        <a class="pl-3" href="https://wilsoncheung.github.io/">
+          <i class="fas fa-portrait fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-copyright center-align">
+      <div class="container bold-text">
+        © Copyright {{ new Date().getFullYear() }}
+        <div>
+          <a href="https://www.linkedin.com/in/wilson-cheung-1347b549/"
+            >Wilson Cheung</a
+          >
+        </div>
         <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
       </div>
     </div>
@@ -42,5 +51,9 @@ footer {
 }
 .page-footer .footer-copyright {
   color: #28d4c2 !important;
+  background-color: black !important;
+}
+.pl-3 {
+  padding-left: 3rem;
 }
 </style>
