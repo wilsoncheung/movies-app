@@ -8,7 +8,7 @@
 
       <!--Now Playing Video Gallery-->
       <div class="row center-align">
-        <h5 class="row">Playing Now</h5>
+        <h5 class="row bold-text">Playing Now</h5>
         <hr />
         <div
           class="col s12 m4 l4"
@@ -25,7 +25,9 @@
             ></iframe>
           </div>
           <p>
-            <strong>{{ formatDate(trailer.releaseDate) }}</strong>
+            <strong class="bold-text">
+              {{ formatDate(trailer.releaseDate) }}
+            </strong>
           </p>
         </div>
       </div>
@@ -33,7 +35,7 @@
 
       <!--Coming Soon Posters-->
       <div class="row center-align">
-        <h5 class="row">Coming Soon</h5>
+        <h5 class="row bold-text">Coming Soon</h5>
         <hr />
         <div class="row flex-it">
           <div

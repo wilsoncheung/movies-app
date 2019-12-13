@@ -5,7 +5,12 @@
         <img
           class="activator"
           :src="'https://image.tmdb.org/t/p/original' + movie.poster_path"
+          v-if="movie.poster_path"
         />
+        <div class="border-box center-align" v-else>
+          <p class="bold-text">{{ movie.title }}</p>
+          <p class="bold-text">(No Poster)</p>
+        </div>
         <span
           class="btn-floating halfway-fab waves-effect waves-light center-align"
         >

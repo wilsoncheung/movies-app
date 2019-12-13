@@ -52,7 +52,7 @@ const getters = {
     },
     trendingMovies: (state) => num => {
         if (state.movies.trending.results) {
-            let sortedTrendingMovies = _.orderBy(state.movies.trending.results, 'popularity', 'desc').slice(0, num);
+            let sortedTrendingMovies = _.orderBy(_.orderBy(state.movies.trending.results, 'vote_count', 'desc'), 'release_date', 'desc').slice(0, num);
             return sortedTrendingMovies;
         }
     },
@@ -98,11 +98,8 @@ const getters = {
     moviesKnownFor: (state) => num => {
         if (state.personDetails.movie_credits.cast) {
             let directed = _.uniqBy(_.orderBy(state.personDetails.movie_credits.crew.filter(c => c.job === "Director" | c.job === "Producer" | c.job === "Executive Producer"), 'vote_count', 'desc'), 'id').slice(0, num);
-
             let actedIn = _.orderBy(state.personDetails.movie_credits.cast, 'vote_count', 'desc').slice(0, num);
-
             let movies = state.personDetails.known_for_department === "Directing" ? directed : actedIn;
-
             return movies;
         }
     },
@@ -151,7 +148,7 @@ const actions = {
 
         // Should be a better way of doing this..
         let response = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=ef7291a469f1ea67c2f23af1c31deb42&language=en-US&page=1&region=us');
-        let movies = (_.orderBy(_.orderBy(response.data.results, 'release_date', 'desc'), 'popularity', 'desc')).slice(0, 3);
+        let movies = (_.orderBy(_.orderBy(response.data.results, 'popularity', 'desc'), 'release_date', 'desc')).slice(0, 3);
         let nowPlayingTrailerUrls = [];
 
         for (let i = 0; i < movies.length; i++) {
