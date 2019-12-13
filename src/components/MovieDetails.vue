@@ -80,7 +80,7 @@
           <div class="container">
             <div class="movie-summary">
               <span v-for="genre in movieDetails.genres" :key="genre.id">
-                <span class="new badge" data-badge-caption="">{{
+                <span class="new badge bold-text" data-badge-caption="">{{
                   genre.name
                 }}</span>
               </span>
@@ -334,7 +334,7 @@ export default {
   font-weight: bold;
 }
 .bold-text {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 .movie-details blockquote {
   margin-bottom: 2em;
