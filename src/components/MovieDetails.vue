@@ -12,19 +12,19 @@
           <span class="subtext grey-text text-darken-2"> ({{ year }}) </span>
         </h3>
         <div class="row">
-          <div class="col l1 valign-wrapper">
+          <div class="col l1 s3 valign-wrapper">
             <i class="material-icons">access_time</i>
             <span title="Duration">
               {{ this.$helpers.convertToDuration(movieDetails.runtime) }}
             </span>
           </div>
-          <div class="col l2 valign-wrapper">
+          <div class="col l2 s6 valign-wrapper">
             <i class="material-icons">today</i>
             <span title="Release Date">
               {{ movieDetails.release_date | toDateString }}
             </span>
           </div>
-          <div class="col l4 valign-wrapper">
+          <div class="col l4 s2 valign-wrapper">
             <i class="material-icons">star</i>
             <span title="Rating">{{ movieDetails.vote_average || "?" }}</span>
           </div>
@@ -45,7 +45,7 @@
             <p class="bold-text">No Poster</p>
           </div>
           <div class="row bold-text">
-            <div class="col l4 offset-l2 valign-wrapper">
+            <div class="col l4 offset-l2 offset-s3 valign-wrapper">
               <i class="material-icons">people_outline</i>
               <span title="Vote Count">{{
                 movieDetails.vote_count || "?" | toNumberFormat
@@ -80,10 +80,13 @@
           <div class="container">
             <div class="movie-summary">
               <div class="row">
-                <span v-for="genre in movieDetails.genres" :key="genre.id">
-                  <span class="new badge bold-text" data-badge-caption="">{{
-                    genre.name
-                  }}</span>
+                <span
+                  class="new badge bold-text"
+                  v-for="genre in movieDetails.genres"
+                  :key="genre.id"
+                  data-badge-caption=""
+                >
+                  {{ genre.name }}
                 </span>
               </div>
               <div class="row">
@@ -92,19 +95,23 @@
               </div>
             </div>
             <div class="movie-finances row">
-              <div class="col l2">
+              <div class="col l2 s6">
                 <h6 class="bold-text">Budget:</h6>
                 <span>
                   {{ movieDetails.budget | toCurrency }}
                 </span>
               </div>
-              <div class="col l2">
+              <div class="col l3 s6">
                 <h6 class="bold-text">Revenue:</h6>
-                <span :title="netProfit | toCurrency">
+                <span
+                  class="pointer valign-wrapper"
+                  :title="netProfit | toCurrency"
+                >
                   {{ movieDetails.revenue || "?" | toCurrency }}
+                  <i class="material-icons"> info </i>
                 </span>
               </div>
-              <div class="col l2 offset-l2">
+              <div class="col l2 offset-l1 s6">
                 <h6 class="bold-text">
                   Director<span v-if="crews.Directors.length > 1">s</span>:
                 </h6>
@@ -115,7 +122,7 @@
                   >
                 </div>
               </div>
-              <div class="col l2">
+              <div class="col l2 s6">
                 <h6 class="bold-text">
                   Writer<span v-if="crews.Writers.length > 1">s</span>:
                 </h6>
@@ -126,7 +133,7 @@
                   >
                 </div>
               </div>
-              <div class="col l2">
+              <div class="col l2 s6">
                 <h6 class="bold-text">
                   Producer<span v-if="crews.Producers.length > 1">s</span>:
                 </h6>

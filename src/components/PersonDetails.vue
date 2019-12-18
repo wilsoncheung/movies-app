@@ -14,7 +14,7 @@
         <div class="center-align border-box" v-else>
           <p class="bold-text">No Photo</p>
         </div>
-        <div class="row center">
+        <div class="row center mt-1">
           <a
             class="col s3 l3"
             v-if="this.personDetails.external_ids.imdb_id"
@@ -66,9 +66,11 @@
       </div>
       <div class="col s12 m8 l8">
         <h3 class="bold-text mt-0">{{ this.personDetails.name }}</h3>
-        <span v-for="(r, index) in roles" :key="index">
-          <span class="chip">{{ r }}</span>
-        </span>
+        <div class="row">
+          <span v-for="(r, index) in roles" :key="index">
+            <span class="chip">{{ r }}</span>
+          </span>
+        </div>
         <ul class="details-list">
           <li class="row">
             <div class="col l4">
@@ -149,5 +151,8 @@ export default {
 }
 .mt-0 {
   margin-top: 0;
+}
+.mt-1 {
+  margin-top: 1rem;
 }
 </style>

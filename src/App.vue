@@ -55,4 +55,7 @@ a:hover {
 .sidenav-overlay {
   z-index: 1; /*Was in the background*/
 }
+.pointer {
+  cursor: pointer;
+}
 </style>

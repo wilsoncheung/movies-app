@@ -4,7 +4,9 @@
     <div>
       <h5 class="row bold-text center-align">Trending</h5>
       <!--Carousel-->
-      <PosterSlider :theMovies="trendingMovies(7)" />
+      <div class="row">
+        <PosterSlider :theMovies="trendingMovies(7)" />
+      </div>
       <!--//-->
       <hr />
 

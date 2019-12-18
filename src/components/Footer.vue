@@ -29,12 +29,12 @@
       <div class="container bold-text">
         © Copyright {{ new Date().getFullYear() }}
         <div>
-          <a
+          <!-- <a
             href="https://www.linkedin.com/in/wilson-cheung-1347b549/"
             target="_blank"
-          >
-            Wilson Cheung
-          </a>
+          > -->
+          Wilson Cheung
+          <!-- </a> -->
         </div>
         <!-- <a class="grey-text text-lighten-4 right" href="#!">More Links</a> -->
       </div>
