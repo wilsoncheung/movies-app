@@ -9,9 +9,9 @@
             id="autocomplete-input"
             class="autocomplete"
             placeholder="Search"
-            v-model="query"
-            v-on:keyup="search()"
+            v-model="searchQuery"
           />
+          <p class="ml-3">{{ coolText }}</p>
           <label for="autocomplete-input"></label>
         </div>
       </div>
@@ -21,25 +21,39 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import _ from "lodash";
 
 export default {
   name: "SearchBar",
   data() {
     return {
-      query: "",
-      selectedItem: ""
+      searchQuery: "",
+      selectedItem: "",
+      coolText: ""
     };
+  },
+  // Use "Watchers" when you want to perform asynchronous/ expensive opertions
+  // in reponse to changing data (aka in our case calling api based on every letter typed by user input..)
+  // https://vuejs.org/v2/guide/computed.html#Watchers
+  watch: {
+    // whenever "searchQuery" changes this runs..(must be the same name as the v-model)
+    searchQuery() {
+      this.coolText = "Typing...";
+      this.debounceGetSearchResults();
+    }
+  },
+  created() {
+    // using lodash "debounce" to limit expensive api calls
+    this.debounceGetSearchResults = _.debounce(this.search, 500);
   },
   methods: {
     ...mapActions(["searchMovies"]),
     goToMovie(val) {
-      // console.log(val);
       this.$router.push({ name: "MovieDetails", params: { id: val.id } });
     },
     search: function() {
       var self = this; // set the Vue 'this' so it can used inside jquery function later
-
-      self.searchMovies(self.query);
+      self.searchMovies(self.searchQuery);
 
       let results = {};
 
@@ -61,12 +75,8 @@ export default {
       });
       // // });
 
+      self.coolText = "";
       $(".autocomplete").autocomplete("open");
-
-      // let elems = document.querySelectorAll(".autocomplete");
-      // let instances = M.Autocomplete.init(elems, { data: {}, limit: 10 });
-      // instances[0].updateData(results);
-      // instances[0].open();
     }
   },
   computed: {
@@ -81,5 +91,8 @@ export default {
 }
 #search-bar > form > .row {
   margin-bottom: 0 !important;
+}
+.ml-3 {
+  margin-left: 3rem;
 }
 </style>

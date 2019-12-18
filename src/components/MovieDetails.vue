@@ -79,13 +79,17 @@
         <div class="col l12">
           <div class="container">
             <div class="movie-summary">
-              <span v-for="genre in movieDetails.genres" :key="genre.id">
-                <span class="new badge bold-text" data-badge-caption="">{{
-                  genre.name
-                }}</span>
-              </span>
-              <h4 class="bold-text">Summary</h4>
-              <p>{{ movieDetails.overview }}</p>
+              <div class="row">
+                <span v-for="genre in movieDetails.genres" :key="genre.id">
+                  <span class="new badge bold-text" data-badge-caption="">{{
+                    genre.name
+                  }}</span>
+                </span>
+              </div>
+              <div class="row">
+                <h4 class="bold-text">Summary</h4>
+                <p>{{ movieDetails.overview }}</p>
+              </div>
             </div>
             <div class="movie-finances row">
               <div class="col l2">
@@ -163,9 +167,9 @@
       </div>
 
       <div class="row">
-        <div class="col l12">
+        <div class="col l12 s12">
+          <h4 class="bold-text center-align">Reviews</h4>
           <div class="container">
-            <h4 class="bold-text center-align">Reviews</h4>
             <div v-for="review in reviews(5)" :key="review.id">
               <blockquote>
                 <span class="subtext"

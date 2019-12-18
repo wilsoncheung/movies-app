@@ -2,14 +2,15 @@
   <div class="container">
     <SearchBar />
     <div>
+      <h5 class="row bold-text center-align">Trending</h5>
       <!--Carousel-->
       <PosterSlider :theMovies="trendingMovies(7)" />
       <!--//-->
+      <hr />
 
       <!--Now Playing Video Gallery-->
       <div class="row center-align">
         <h5 class="row bold-text">Playing Now</h5>
-        <hr />
         <div
           class="col s12 m4 l4"
           v-for="(trailer, index) in trailers"
@@ -33,10 +34,10 @@
       </div>
       <!--//-->
 
+      <hr />
       <!--Coming Soon Posters-->
       <div class="row center-align">
         <h5 class="row bold-text">Coming Soon</h5>
-        <hr />
         <div class="row flex-it">
           <div
             class="col s6 m2 l2"
